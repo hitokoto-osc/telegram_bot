@@ -23,7 +23,7 @@ func Help(b *telebot.Bot) {
 			},
 		)
 		if err != nil {
-			log.Errorf("发送消息时发生了错误，错误信息： %s \n")
+			log.Errorf("发送消息时发生了错误，错误信息： %s \n", err)
 		}
 	})
 }
