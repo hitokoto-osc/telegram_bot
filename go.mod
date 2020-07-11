@@ -10,7 +10,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/shirou/gopsutil v2.20.2+incompatible
 	github.com/sirupsen/logrus v1.6.0
-	github.com/spf13/viper v1.6.2
+	github.com/spf13/viper v1.7.0
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e // indirect
 	gopkg.in/tucnak/telebot.v2 v2.0.0-20200301001213-9852df39ae6c
 )
