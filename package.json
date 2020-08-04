@@ -10,10 +10,10 @@
     "commit": "git-cz"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.3.5",
-    "@commitlint/config-conventional": "8.3.4",
-    "@commitlint/prompt": "8.3.5",
-    "@commitlint/prompt-cli": "8.3.5",
+    "@commitlint/cli": "9.1.1",
+    "@commitlint/config-conventional": "9.1.1",
+    "@commitlint/prompt": "9.1.1",
+    "@commitlint/prompt-cli": "9.1.1",
     "commitizen": "4.1.2",
     "cz-conventional-changelog": "3.2.0",
     "husky": "4.2.5",
