@@ -1,9 +1,9 @@
 package telegram
 
 import (
+	"github.com/hitokoto-osc/telegram_bot/config"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/tucnak/telebot.v2"
-	"source.hitokoto.cn/hitokoto/telegram_bot/src/config"
 	"time"
 )
 

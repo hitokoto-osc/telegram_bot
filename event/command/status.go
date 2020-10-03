@@ -2,12 +2,12 @@ package command
 
 import (
 	"fmt"
+	"github.com/hitokoto-osc/telegram_bot/build"
 	"github.com/levigross/grequests"
 	"github.com/shirou/gopsutil/load"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/tucnak/telebot.v2"
 	"runtime"
-	"source.hitokoto.cn/hitokoto/telegram_bot/src/build"
 	"strconv"
 	"strings"
 	"time"

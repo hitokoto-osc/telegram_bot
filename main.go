@@ -3,13 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/hitokoto-osc/telegram_bot/build"
+	"github.com/hitokoto-osc/telegram_bot/config"
+	"github.com/hitokoto-osc/telegram_bot/event"
+	"github.com/hitokoto-osc/telegram_bot/telegram"
 	log "github.com/sirupsen/logrus"
 	"os"
 	"runtime"
-	"source.hitokoto.cn/hitokoto/telegram_bot/src/build"
-	"source.hitokoto.cn/hitokoto/telegram_bot/src/config"
-	"source.hitokoto.cn/hitokoto/telegram_bot/src/event"
-	"source.hitokoto.cn/hitokoto/telegram_bot/src/telegram"
 )
 
 var (

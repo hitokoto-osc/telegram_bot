@@ -1,8 +1,8 @@
 package event
 
 import (
+	"github.com/hitokoto-osc/telegram_bot/event/command"
 	"gopkg.in/tucnak/telebot.v2"
-	"source.hitokoto.cn/hitokoto/telegram_bot/src/event/command"
 )
 
 func RegisterEvent(bot *telebot.Bot) {
