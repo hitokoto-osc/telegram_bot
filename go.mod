@@ -1,4 +1,4 @@
-module source.hitokoto.cn/hitokoto/telegram_bot
+module github.com/hitokoto-osc/telegram_bot
 
 go 1.14
 
