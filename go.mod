@@ -8,7 +8,7 @@ require (
 	github.com/levigross/grequests v0.0.0-20190908174114-253788527a1a
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/shirou/gopsutil v3.20.12+incompatible
-	github.com/shirou/gopsutil/v3 v3.20.12
+	github.com/shirou/gopsutil/v3 v3.21.1
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/viper v1.7.1
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e // indirect
