@@ -72,7 +72,6 @@ coverage.all
 /integrations/pgsql.ini
 /integrations/mssql.ini
 /node_modules
-/yarn.lock
 /public/js
 /public/css
 /public/fomantic

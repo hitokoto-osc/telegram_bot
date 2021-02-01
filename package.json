@@ -1,7 +1,6 @@
 {
   "name": "telegram_bot",
   "description": "Hitokoto Telegram bot based on go",
-  "main": "index.js",
   "repository": "https://source.hitokoto.cn/hitokoto/telegram_bot",
   "author": "a632079 <a632079@qq.com>",
   "license": "MIT",
