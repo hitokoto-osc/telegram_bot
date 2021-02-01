@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// Image 返回随机必应图片
 func Image(bot *telebot.Bot) {
 	bot.Handle("/image", func(m *telebot.Message) {
 		// 暂时先只做 Bing

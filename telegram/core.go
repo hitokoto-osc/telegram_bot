@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// InitBot Telegram 机器人的初始化入口
 func InitBot() *telebot.Bot {
 	c := &config.Telegram{}
 	if c.Token() == "" {

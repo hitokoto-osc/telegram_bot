@@ -5,6 +5,7 @@ import (
 	"gopkg.in/tucnak/telebot.v2"
 )
 
+// Start 用于响应 Telegram 要求的机器人 Start 指令
 func Start(bot *telebot.Bot) {
 	bot.Handle("/start", func(m *telebot.Message) {
 		if !m.Private() { // 如果不是私发消息，不回复

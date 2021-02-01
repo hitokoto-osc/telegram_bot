@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// About 返回关于信息
 func About(b *telebot.Bot) {
 	b.Handle("/about", func(m *telebot.Message) {
 		_, err := b.Send(m.Chat, fmt.Sprintf(`ヒトコト（一言） 官方 Telegram 机器人。 目前仅提供简体中文支持。 主要提供一句话服务。

@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// Help 返回使用帮助
 func Help(b *telebot.Bot) {
 	b.Handle("/help", func(m *telebot.Message) {
 		_, err := b.Send(m.Chat, fmt.Sprintf(`*以下是目前支持的指令：*

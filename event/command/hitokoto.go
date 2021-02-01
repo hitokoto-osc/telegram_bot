@@ -32,6 +32,7 @@ func inStringSlice(haystack []string, needle string) bool {
 	return false
 }
 
+// Hitokoto 获取一言
 func Hitokoto(b *telebot.Bot) {
 	b.Handle("/hitokoto", func(m *telebot.Message) {
 		payload := m.Payload // 指令：`/hitokoto <payload>` 这里提取 payload 用于提取参数
@@ -67,6 +68,7 @@ func Hitokoto(b *telebot.Bot) {
 	})
 }
 
+// HitokotoSentenceAPIV1Response 定义了一言接口的结构
 type HitokotoSentenceAPIV1Response struct {
 	ID         uint32 `json:"id"`
 	Hitokoto   string `json:"hitokoto"`

@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// InitConfig 为配置初始化函数
 func InitConfig(path string) {
 	log.Debug("初始化默认配置...")
 	loadTelegramConfig()

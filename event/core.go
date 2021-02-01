@@ -5,6 +5,7 @@ import (
 	"gopkg.in/tucnak/telebot.v2"
 )
 
+// RegisterEvent 定义了机器人事件处理的入口
 func RegisterEvent(bot *telebot.Bot) {
 	registerCommand(bot)
 }

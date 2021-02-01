@@ -13,9 +13,10 @@ import (
 	"time"
 )
 
+// Status 用于响应获取统计信息的指令
 func Status(b *telebot.Bot) {
 	b.Handle("/status", func(m *telebot.Message) {
-		response, err := grequests.Get("https://status.hitokoto.cn", nil)
+		response, err := grequests.Get("https://status.hitokoto.cn/v1/statistic", nil)
 		if err != nil {
 			log.Errorf("尝试获取统计数据时出现错误，错误信息： %s\n", err)
 			_, err = b.Send(m.Chat, "很抱歉，尝试获取数据时发生错误。")
@@ -24,8 +25,8 @@ func Status(b *telebot.Bot) {
 			}
 			return
 		}
-		data := &hitokotoStatusAPIV1Response{}
-		err = response.JSON(data)
+		result := &hitokotoStatusAPIV1Response{}
+		err = response.JSON(result)
 		if err != nil {
 			log.Errorf("尝试解析统计数据时发生错误，错误信息： %s", err)
 			_, err = b.Send(m.Chat, "很抱歉，尝试解析数据时发生错误。")
@@ -36,7 +37,7 @@ func Status(b *telebot.Bot) {
 		}
 
 		// 读取系统负载
-		load, err := load.Avg()
+		lo, err := load.Avg()
 		if err != nil {
 			log.Errorf("尝试解析系统负载时发生错误，错误信息： %s", err)
 			_, err = b.Send(m.Chat, "很抱歉，尝试解析系统负载时发生错误。")
@@ -65,17 +66,17 @@ func Status(b *telebot.Bot) {
 编译时间： %s
 编译哈希： %s
 `,
-			strconv.Itoa(data.Status.Hitokoto.Total),
-			strings.Join(data.Status.Hitokoto.Categroy, ","),
-			loadToString(data.Status.Load[0])+","+loadToString(data.Status.Load[1])+","+loadToString(data.Status.Load[2]),
-			loadToString(data.Status.Memory),
-			strconv.FormatUint(data.Requests.All.PastMinute, 10),
-			strconv.FormatUint(data.Requests.All.PastHour, 10),
-			strconv.FormatUint(data.Requests.All.PastDay, 10),
+			strconv.Itoa(result.Data.Status.Hitokoto.Total),
+			strings.Join(result.Data.Status.Hitokoto.Category, ","),
+			loadToString(result.Data.Status.Load[0])+","+loadToString(result.Data.Status.Load[1])+","+loadToString(result.Data.Status.Load[2]),
+			loadToString(result.Data.Status.Memory),
+			strconv.FormatUint(result.Data.Requests.All.PastMinute, 10),
+			strconv.FormatUint(result.Data.Requests.All.PastHour, 10),
+			strconv.FormatUint(result.Data.Requests.All.PastDay, 10),
 			time.Now().Format("2006年1月2日 15:04:05"),
 			runtime.GOOS,
 			runtime.GOARCH,
-			loadToString(load.Load1)+","+loadToString(load.Load5)+","+loadToString(load.Load15),
+			loadToString(lo.Load1)+","+loadToString(lo.Load5)+","+loadToString(lo.Load15),
 			build.Version,
 			runtime.Version(),
 			build.CommitTime,
@@ -89,8 +90,10 @@ func Status(b *telebot.Bot) {
 }
 
 type hitokotoStatusAPIV1Response struct { // 因为不需要使用全部数据，所以这里就只解析部分了
-	Status   status   `json:"status"`
-	Requests requests `json:"requests"`
+	Data struct{
+		Status   status   `json:"status"`
+		Requests requests `json:"requests"`
+	} 	`json:"data"`
 }
 
 type status struct {
@@ -101,7 +104,7 @@ type status struct {
 
 type hitokoto struct {
 	Total    int      `json:"total"`
-	Categroy []string `json:"categroy"` // 别在意这个，Api 写的时候就打错了...
+	Category []string `json:"category"`
 }
 
 type requests struct {
@@ -110,9 +113,9 @@ type requests struct {
 
 type all struct {
 	Total      uint64 `json:"total"`
-	PastMinute uint64 `json:"pastMinute"`
-	PastHour   uint64 `json:"pastHour"`
-	PastDay    uint64 `json:"pastDay"`
+	PastMinute uint64 `json:"past_minute"`
+	PastHour   uint64 `json:"past_hour"`
+	PastDay    uint64 `json:"past_day"`
 }
 
 func loadToString(v float64) string {
