@@ -44,6 +44,7 @@ func initLogger() {
 	// Log as JSON instead of the default ASCII formatter.
 	log.SetFormatter(&log.TextFormatter{
 		FullTimestamp: true,
+		ForceColors: true,
 	})
 
 	// Output to stdout instead of the default stderr
