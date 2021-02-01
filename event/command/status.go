@@ -78,8 +78,8 @@ func Status(b *telebot.Bot) {
 			loadToString(load.Load1)+","+loadToString(load.Load5)+","+loadToString(load.Load15),
 			build.Version,
 			runtime.Version(),
-			build.BuildTime,
-			build.GitCommit,
+			build.CommitTime,
+			build.CommitTag,
 		),
 			&telebot.SendOptions{
 				ParseMode: "Markdown",

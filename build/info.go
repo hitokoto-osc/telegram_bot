@@ -1,8 +1,10 @@
 package build
 
-const Version = "1.0.1"
-
 var (
-	GitCommit = ""
-	BuildTime = ""
+	// Version 程序版本
+	Version = "development"
+	// CommitTag Git Hash
+	CommitTag = "unknown"
+	// CommitTime 提交时间
+	CommitTime = "unknown"
 )

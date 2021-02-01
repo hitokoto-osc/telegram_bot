@@ -3,6 +3,9 @@ PROJECT_PATH := "github.com/hitokoto-osc/telegram_bot"
 PKG := "$(PROJECT_PATH)"
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
 GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go)
+GIT_COMMIT := $(shell git rev-parse HEAD)
+GIT_COMMIT_TIME := $(shell git log --pretty=format:"%cd" ${GIT_COMMIT} -1)
+GIT_DIRTY :=$(shell test -n "$(git status --porcelain)" && echo "+CHANGES" || true)
 
 .PHONY: all dep get-tools lint vet test test-coverage build clean
 
@@ -30,7 +33,7 @@ build: dep
 	@echo;
 	@echo Building...;
 	@mkdir -p dist;
-	go build -v -o dist/${PROJECT_NAME} .;
+	@go build -ldflags "-X 'github.com/hitokoto-osc/telegram_bot/build.CommitTag=${GIT_COMMIT}' -X 'github.com/hitokoto-osc/telegram_bot/build.CommitTime=${GIT_COMMIT_TIME}'" -v -o dist/${PROJECT_NAME} .;
 
 test:
 	@echo Testing...

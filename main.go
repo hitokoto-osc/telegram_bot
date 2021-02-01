@@ -35,7 +35,7 @@ func parseFlags() {
 		os.Exit(0)
 	}
 	if v {
-		fmt.Printf("一言电报机器人服务 \n版本: %s\nGitCommit: %s\n编译时间: %s\n编译环境: %s\n", build.Version, build.GitCommit, build.BuildTime, runtime.Version())
+		fmt.Printf("一言电报机器人服务 \n版本: %s\nGitCommit: %s\n编译时间: %s\n编译环境: %s\n", build.Version, build.CommitTag, build.CommitTime, runtime.Version())
 		os.Exit(0)
 	}
 }
