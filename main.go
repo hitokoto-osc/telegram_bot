@@ -71,5 +71,5 @@ func main() {
 	event.RegisterEvent(bot)
 	go bot.Start()
 	log.Info("机器人初始化完成，开始接收信息。")
-	select {}
+	select {} // revive:disable-line:empty-block 错误检测。 堵塞进程是必须的
 }

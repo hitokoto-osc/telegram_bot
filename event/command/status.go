@@ -24,7 +24,7 @@ func Status(b *telebot.Bot) {
 			}
 			return
 		}
-		data := &hitokotoStatusApiV1Response{}
+		data := &hitokotoStatusAPIV1Response{}
 		err = response.JSON(data)
 		if err != nil {
 			log.Errorf("尝试解析统计数据时发生错误，错误信息： %s", err)
@@ -88,7 +88,7 @@ func Status(b *telebot.Bot) {
 	})
 }
 
-type hitokotoStatusApiV1Response struct { // 因为不需要使用全部数据，所以这里就只解析部分了
+type hitokotoStatusAPIV1Response struct { // 因为不需要使用全部数据，所以这里就只解析部分了
 	Status   status   `json:"status"`
 	Requests requests `json:"requests"`
 }

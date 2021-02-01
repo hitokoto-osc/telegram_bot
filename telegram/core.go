@@ -8,16 +8,16 @@ import (
 )
 
 func InitBot() *telebot.Bot {
-	config := &config.Telegram{}
-	if config.Token() == "" {
+	c := &config.Telegram{}
+	if c.Token() == "" {
 		log.Fatal("电报令牌为空。您是不是忘记填写了令牌？")
 	}
 	bot, err := telebot.NewBot(telebot.Settings{
-		URL:     config.Registry(),
-		Token:   config.Token(),
+		URL:     c.Registry(),
+		Token:   c.Token(),
 		Updates: 0,
 		Poller: &telebot.LongPoller{
-			Timeout: time.Duration(config.PollInterval()) * time.Second,
+			Timeout: time.Duration(c.PollInterval()) * time.Second,
 		},
 		Reporter: nil,
 		Client:   nil,

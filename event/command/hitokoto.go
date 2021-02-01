@@ -50,7 +50,7 @@ func Hitokoto(b *telebot.Bot) {
 			}
 			return
 		}
-		data := &HitokotoSentenceApiV1Response{}
+		data := &HitokotoSentenceAPIV1Response{}
 		err = response.JSON(data)
 		if err != nil {
 			log.Errorf("尝试解析一言时发生错误，错误信息： %s", err)
@@ -67,13 +67,13 @@ func Hitokoto(b *telebot.Bot) {
 	})
 }
 
-type HitokotoSentenceApiV1Response struct {
-	Id         uint32 `json:"id"`
+type HitokotoSentenceAPIV1Response struct {
+	ID         uint32 `json:"id"`
 	Hitokoto   string `json:"hitokoto"`
 	From       string `json:"from"`
 	FromWho    string `json:"from_who"`
 	Creator    string `json:"creator"`
-	CreatorUid int32  `json:"creator_uid"`
+	CreatorUID int32  `json:"creator_uid"`
 	Reviewer   int32  `json:"reviewer"`
 	UUID       string `json:"uuid"`
 	CreatedAt  string `json:"created_at"`

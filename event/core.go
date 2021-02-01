@@ -17,5 +17,4 @@ func registerCommand(bot *telebot.Bot) {
 	command.Ping(bot)
 	command.Help(bot)
 	command.Status(bot)
-
 }
