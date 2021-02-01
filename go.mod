@@ -6,10 +6,7 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/levigross/grequests v0.0.0-20190908174114-253788527a1a
-	github.com/mattn/go-runewidth v0.0.10 // indirect
-	github.com/mgechev/revive v1.0.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/shirou/gopsutil v3.21.1+incompatible
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/viper v1.7.1
