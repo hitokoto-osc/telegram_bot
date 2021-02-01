@@ -29,6 +29,9 @@ vet:
 	@echo Linting go codes with go vet...
 	go vet ./...
 
+precommit: vet lint test
+	go mod tidy
+
 build: dep
 	@echo;
 	@echo Building...;
