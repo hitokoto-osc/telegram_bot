@@ -7,7 +7,7 @@ require (
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/levigross/grequests v0.0.0-20190908174114-253788527a1a
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/shirou/gopsutil v3.21.1+incompatible
+	github.com/shirou/gopsutil v3.21.5+incompatible
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/viper v1.7.1
 	github.com/stretchr/testify v1.6.1 // indirect
