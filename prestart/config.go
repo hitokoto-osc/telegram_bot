@@ -39,7 +39,7 @@ func initConfig(path string) {
 	viper.SetEnvPrefix("TELEGRAM_BOT_")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.AutomaticEnv()
-	
+
 	logger.Debug(
 		"已加载配置文件",
 		zap.String("config_file_used", viper.ConfigFileUsed()),
