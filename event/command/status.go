@@ -36,7 +36,7 @@ func Status(b *telebot.Bot) {
 			return errors.Wrap(err, "读取系统负载时发生错误")
 		}
 		// log.Debug(data)
-		_, err = b.Send(ctx.Chat(), fmt.Sprintf(`*[一言统计信息]*
+		return ctx.Send(fmt.Sprintf(`*[一言统计信息]*
 句子总数： %s
 现存分类： %s
 服务负载： %s
@@ -75,7 +75,6 @@ func Status(b *telebot.Bot) {
 				ParseMode: "Markdown",
 			},
 		)
-		return err
 	})
 }
 

@@ -46,8 +46,7 @@ func Hitokoto(b *telebot.Bot) {
 		if err != nil {
 			return errors.Wrap(err, "无法解析一言接口返回的 JSON 数据")
 		}
-		_, err = b.Reply(ctx.Message(), fmt.Sprintf(`%s —— %s「%s」`, data.Hitokoto, data.FromWho, data.From))
-		return err
+		return ctx.Reply(fmt.Sprintf(`%s —— %s「%s」`, data.Hitokoto, data.FromWho, data.From))
 	})
 }
 

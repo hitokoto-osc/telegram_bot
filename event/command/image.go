@@ -13,9 +13,8 @@ func Image(bot *telebot.Bot) {
 		photo := &telebot.Photo{
 			File: telebot.FromURL("https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture&r=" + strconv.FormatInt(time.Now().UnixNano(), 10)),
 		}
-		_, err := photo.Send(bot, ctx.Chat(), &telebot.SendOptions{
+		return ctx.SendAlbum(telebot.Album{photo}, &telebot.SendOptions{
 			ReplyTo: ctx.Message(),
 		})
-		return err
 	})
 }

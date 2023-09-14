@@ -11,7 +11,7 @@ import (
 // Help 返回使用帮助
 func Help(b *telebot.Bot) {
 	b.Handle("/help", func(ctx telebot.Context) error {
-		_, err := b.Send(ctx.Chat(), fmt.Sprintf(`*以下是目前支持的指令：*
+		err := ctx.Reply(fmt.Sprintf(`*以下是目前支持的指令：*
 /about 关于机器人
 /hitokoto [分类] 获取一条句子，[分类] 可以在“开发者中心”的“语句接口”部分找到详细定义。默认返回随机分类。
 /help 获取机器人帮助信息。
