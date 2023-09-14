@@ -2,7 +2,6 @@ package config
 
 import (
 	"github.com/cockroachdb/errors"
-	"github.com/hitokoto-osc/telegram_bot/logging"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"strings"
@@ -10,7 +9,7 @@ import (
 
 // InitConfig 为配置初始化函数
 func InitConfig(path string) {
-	logger := logging.GetLogger()
+	logger := zap.L()
 	defer logger.Sync()
 	logger.Debug("初始化默认配置...")
 	loadTelegramConfig()
