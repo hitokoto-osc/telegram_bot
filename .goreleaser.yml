@@ -8,6 +8,7 @@ before:
     - go mod download
     # you may remove this if you don't need go generate
     - go generate ./...
+project_name: bot
 builds:
   - env:
       - CGO_ENABLED=0
@@ -24,13 +25,13 @@ builds:
     ldflags:
       - -X 'github.com/hitokoto-osc/telegram_bot/build.Version={{.Version}}' -X 'github.com/hitokoto-osc/telegram_bot/build.CommitTag={{.FullCommit}}' -X 'github.com/hitokoto-osc/telegram_bot/build.CommitTime={{ .CommitDate }}'
 archives:
-  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
-    replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+  - name_template: >-
+      {{- .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end -}}
     format_overrides:
       - goos: windows
         format: zip
@@ -47,3 +48,31 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+
+dockers:
+  - goos: linux
+    # GOARCH of the built binaries/packages that should be used.
+    goarch: amd64
+    # GOARM of the built binaries/packages that should be used.
+    goarm: ''
+    image_templates:
+      - "hitokoto/telegram-bot:latest"
+      - "hitokoto/telegram-bot:{{ .Tag }}"
+      - "hitokoto/telegram-bot:v{{ .Major }}"
+    dockerfile: Dockerfile
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--label=io.artifacthub.package.readme-url=https://raw.githubusercontent.com/hitokoto-osc/telegram_bot/master/README.md"
+      - "--label=io.artifacthub.package.logo-url=https://cdn.a632079.me/assets/images/hitokoto-logo-512x512.png"
+      - '--label=io.artifacthub.package.maintainers=[{"name":"a632079","email":"a632079@qq.com"}]'
+      - "--label=io.artifacthub.package.license=MIT"
+      - "--label=org.opencontainers.image.description=一言的 Telegram 机器人程序"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--platform=linux/amd64"
+    extra_files:
+      - config.example.yml
