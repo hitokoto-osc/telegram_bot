@@ -1,18 +1,22 @@
-package config
+package prestart
 
 import (
 	"github.com/cockroachdb/errors"
+	"github.com/hitokoto-osc/telegram_bot/logging"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"strings"
 )
 
 // InitConfig 为配置初始化函数
-func InitConfig(path string) {
-	logger := zap.L()
+func initConfig(path string) {
+	logger := logging.GetLogger()
 	defer logger.Sync()
 	logger.Debug("初始化默认配置...")
-	loadTelegramConfig()
+
+	viper.SetDefault("telegram.token", "")
+	viper.SetDefault("telegram.registry", "https://api.telegram.org")
+	viper.SetDefault("telegram.poll_interval", 1)
 
 	logger.Debug("开始读取配置文件...")
 	viper.SetEnvPrefix("TELEGRAM_BOT_")

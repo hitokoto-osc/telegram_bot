@@ -1,16 +1,16 @@
 package main
 
 import (
-	"github.com/hitokoto-osc/telegram_bot/config"
 	"github.com/hitokoto-osc/telegram_bot/event"
 	"github.com/hitokoto-osc/telegram_bot/flags"
+	"github.com/hitokoto-osc/telegram_bot/prestart"
 	"github.com/hitokoto-osc/telegram_bot/telegram"
 	"go.uber.org/zap"
 )
 
 func init() {
 	flags.Do()
-	config.InitConfig(config.Path)
+	prestart.Do()
 }
 
 func main() {

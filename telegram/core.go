@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"encoding/json"
 	"github.com/hitokoto-osc/telegram_bot/request"
 	"go.uber.org/zap"
 	"gopkg.in/telebot.v3"
@@ -38,5 +39,12 @@ func InitBot() *telebot.Bot {
 	if err != nil {
 		zap.L().Fatal("机器人初始化时发生致命错误。", zap.Error(err))
 	}
+	bot.Use(func(next telebot.HandlerFunc) telebot.HandlerFunc {
+		return func(ctx telebot.Context) error {
+			data, _ := json.MarshalIndent(ctx.Update(), "", "  ")
+			zap.L().Debug("收到消息", zap.ByteString("data", data))
+			return next(ctx)
+		}
+	})
 	return bot
 }

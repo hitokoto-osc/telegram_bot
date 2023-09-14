@@ -2,12 +2,6 @@ package config
 
 import "github.com/spf13/viper"
 
-func loadTelegramConfig() {
-	viper.SetDefault("telegram.token", "")
-	viper.SetDefault("telegram.registry", "https://api.telegram.org")
-	viper.SetDefault("telegram.poll_interval", 1)
-}
-
 // Telegram 定义了 Telegram 初始化所需要的配置
 type Telegram struct{}
 
