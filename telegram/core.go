@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"github.com/hitokoto-osc/telegram_bot/request"
 	"go.uber.org/zap"
 	"gopkg.in/telebot.v3"
 	"time"
@@ -22,9 +23,16 @@ func InitBot() *telebot.Bot {
 		Poller: &telebot.LongPoller{
 			Timeout: time.Duration(c.PollInterval()) * time.Second,
 		},
-		Verbose: false,
-		OnError: nil,
-		Client:  nil,
+		Verbose: config.Debug,
+		OnError: func(err error, ctx telebot.Context) {
+			if ctx == nil {
+				zap.L().Error("机器人发生未知错误。", zap.Error(err))
+				return
+			}
+			zap.L().Error("处理过程中发生错误。", zap.Error(err), zap.String("context", ctx.Text()))
+			_ = ctx.Reply("处理过程中发生错误，请稍后再试！")
+		},
+		Client:  request.NewDefault().StandardClient(),
 		Offline: false,
 	})
 	if err != nil {

@@ -1,11 +1,13 @@
 package command
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/cockroachdb/errors"
-
-	"github.com/levigross/grequests"
+	"github.com/hitokoto-osc/telegram_bot/request"
+	"github.com/samber/lo"
 	"gopkg.in/telebot.v3"
+	"strings"
 )
 
 var supportedTypeList = []string{
@@ -23,32 +25,24 @@ var supportedTypeList = []string{
 	"l", // 抖机灵
 }
 
-func inStringSlice(haystack []string, needle string) bool {
-	for _, e := range haystack {
-		if e == needle {
-			return true
-		}
-	}
-
-	return false
-}
-
 // Hitokoto 获取一言
 func Hitokoto(b *telebot.Bot) {
 	b.Handle("/hitokoto", func(ctx telebot.Context) error {
-		payload := ctx.Message().Payload // 指令：`/hitokoto <payload>` 这里提取 payload 用于提取参数
+		payload := strings.TrimSpace(ctx.Message().Payload) // 指令：`/hitokoto <payload>` 这里提取 payload 用于提取参数
 		url := "https://v1.hitokoto.cn/"
-		if inStringSlice(supportedTypeList, payload) {
-			url += "?c=" + payload
+		if lo.Contains(supportedTypeList, payload) {
+			url += fmt.Sprintf("?c=%s", payload)
 		}
-
 		// 请求接口
-		response, err := grequests.Get(url, nil)
+		client := request.NewDefault()
+		resp, err := client.Get(url)
 		if err != nil {
 			return errors.Wrap(err, "无法请求一言接口")
 		}
+		defer resp.Body.Close()
+		// 解析 JSON
 		data := &HitokotoSentenceAPIV1Response{}
-		err = response.JSON(data)
+		err = json.NewDecoder(resp.Body).Decode(&data)
 		if err != nil {
 			return errors.Wrap(err, "无法解析一言接口返回的 JSON 数据")
 		}

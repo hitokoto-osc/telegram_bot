@@ -4,7 +4,8 @@ go 1.21
 
 require (
 	github.com/cockroachdb/errors v1.11.1
-	github.com/levigross/grequests v0.0.0-20221222020224-9eee758d18d5
+	github.com/hashicorp/go-retryablehttp v0.7.4
+	github.com/samber/lo v1.38.1
 	github.com/shirou/gopsutil/v3 v3.23.8
 	github.com/spf13/viper v1.16.0
 	go.uber.org/zap v1.25.0
@@ -18,7 +19,7 @@ require (
 	github.com/getsentry/sentry-go v0.24.1 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/google/go-querystring v1.1.0 // indirect
+	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
@@ -35,7 +36,7 @@ require (
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/net v0.15.0 // indirect
+	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect

@@ -1,8 +1,10 @@
 package command
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/cockroachdb/errors"
+	"github.com/hitokoto-osc/telegram_bot/request"
 	"gopkg.in/telebot.v3"
 	"runtime"
 	"strconv"
@@ -10,19 +12,20 @@ import (
 	"time"
 
 	"github.com/hitokoto-osc/telegram_bot/build"
-	"github.com/levigross/grequests"
 	"github.com/shirou/gopsutil/v3/load"
 )
 
 // Status 用于响应获取统计信息的指令
 func Status(b *telebot.Bot) {
 	b.Handle("/status", func(ctx telebot.Context) error {
-		response, err := grequests.Get("https://status.hitokoto.cn/v1/statistic", nil)
+		client := request.NewDefault()
+		resp, err := client.Get("https://status.hitokoto.cn/v1/statistic")
 		if err != nil {
 			return errors.Wrap(err, "获取统计数据时发生错误")
 		}
+		defer resp.Body.Close()
 		result := &hitokotoStatusAPIV1Response{}
-		err = response.JSON(result)
+		err = json.NewDecoder(resp.Body).Decode(&result)
 		if err != nil {
 			return errors.Wrap(err, "解析统计数据时发生错误")
 		}
