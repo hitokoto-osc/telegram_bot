@@ -38,7 +38,7 @@ func initConfig(path string) {
 		if !errors.As(err, &e) {
 			logger.Fatal("无法读取配置文件", zap.Error(err))
 		} else {
-			logger.Warn("配置文件不存在，使用默认配置（或从环境变量读取）", zap.Error(err))
+			logger.Warn("配置文件不存在，使用默认配置（或从环境变量读取）")
 		}
 	}
 
