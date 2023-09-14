@@ -14,7 +14,7 @@ all:
 
 get-tools:
 	@echo Installing tools...
-	go get -u github.com/mgechev/revive
+	go install github.com/mgechev/revive
 
 dep: # get dependencies
 	@echo Installing Dependencies...
