@@ -33,7 +33,7 @@ func InitBot() *telebot.Bot {
 			zap.L().Error("处理过程中发生错误。", zap.Error(err), zap.String("context", ctx.Text()))
 			_ = ctx.Reply("处理过程中发生错误，请稍后再试！")
 		},
-		Client:  request.NewDefault().StandardClient(),
+		Client:  request.NewWithCallerSkip(7).StandardClient(),
 		Offline: false,
 	})
 	if err != nil {
