@@ -2,7 +2,7 @@ package event
 
 import (
 	"github.com/hitokoto-osc/telegram_bot/event/command"
-	"gopkg.in/tucnak/telebot.v2"
+	"gopkg.in/telebot.v3"
 )
 
 // RegisterEvent 定义了机器人事件处理的入口

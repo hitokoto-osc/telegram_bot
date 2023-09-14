@@ -3,13 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+	"runtime"
+
 	"github.com/hitokoto-osc/telegram_bot/build"
 	"github.com/hitokoto-osc/telegram_bot/config"
 	"github.com/hitokoto-osc/telegram_bot/event"
 	"github.com/hitokoto-osc/telegram_bot/telegram"
 	log "github.com/sirupsen/logrus"
-	"os"
-	"runtime"
 )
 
 var (
@@ -44,7 +45,7 @@ func initLogger() {
 	// Log as JSON instead of the default ASCII formatter.
 	log.SetFormatter(&log.TextFormatter{
 		FullTimestamp: true,
-		ForceColors: true,
+		ForceColors:   true,
 	})
 
 	// Output to stdout instead of the default stderr

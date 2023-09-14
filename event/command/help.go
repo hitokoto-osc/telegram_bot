@@ -2,15 +2,16 @@ package command
 
 import (
 	"fmt"
-	log "github.com/sirupsen/logrus"
-	"gopkg.in/tucnak/telebot.v2"
 	"time"
+
+	log "github.com/sirupsen/logrus"
+	"gopkg.in/telebot.v3"
 )
 
 // Help 返回使用帮助
 func Help(b *telebot.Bot) {
-	b.Handle("/help", func(m *telebot.Message) {
-		_, err := b.Send(m.Chat, fmt.Sprintf(`*以下是目前支持的指令：*
+	b.Handle("/help", func(ctx telebot.Context) error {
+		_, err := b.Send(ctx.Chat(), fmt.Sprintf(`*以下是目前支持的指令：*
 /about 关于机器人
 /hitokoto [分类] 获取一条句子，[分类] 可以在“开发者中心”的“语句接口”部分找到详细定义。默认返回随机分类。
 /help 获取机器人帮助信息。
@@ -25,6 +26,8 @@ func Help(b *telebot.Bot) {
 		)
 		if err != nil {
 			log.Errorf("发送消息时发生了错误，错误信息： %s \n", err)
+			return err
 		}
+		return nil
 	})
 }

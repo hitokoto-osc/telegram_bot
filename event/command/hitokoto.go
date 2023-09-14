@@ -2,9 +2,10 @@ package command
 
 import (
 	"fmt"
+
 	"github.com/levigross/grequests"
 	log "github.com/sirupsen/logrus"
-	"gopkg.in/tucnak/telebot.v2"
+	"gopkg.in/telebot.v3"
 )
 
 var supportedTypeList = []string{
@@ -34,8 +35,8 @@ func inStringSlice(haystack []string, needle string) bool {
 
 // Hitokoto 获取一言
 func Hitokoto(b *telebot.Bot) {
-	b.Handle("/hitokoto", func(m *telebot.Message) {
-		payload := m.Payload // 指令：`/hitokoto <payload>` 这里提取 payload 用于提取参数
+	b.Handle("/hitokoto", func(ctx telebot.Context) error {
+		payload := ctx.Message().Payload // 指令：`/hitokoto <payload>` 这里提取 payload 用于提取参数
 		url := "https://v1.hitokoto.cn/"
 		if inStringSlice(supportedTypeList, payload) {
 			url += "?c=" + payload
@@ -45,26 +46,28 @@ func Hitokoto(b *telebot.Bot) {
 		response, err := grequests.Get(url, nil)
 		if err != nil {
 			log.Errorf("尝试获取一言时出现错误，错误信息： %s\n", err)
-			_, err = b.Send(m.Chat, "很抱歉，尝试获取发生错误。")
+			_, err = b.Send(ctx.Chat(), "很抱歉，尝试获取发生错误。")
 			if err != nil {
 				log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
 			}
-			return
+			return err
 		}
 		data := &HitokotoSentenceAPIV1Response{}
 		err = response.JSON(data)
 		if err != nil {
 			log.Errorf("尝试解析一言时发生错误，错误信息： %s", err)
-			_, err = b.Send(m.Chat, "很抱歉，尝试解析一言时发生错误。")
+			_, err = b.Send(ctx.Chat(), "很抱歉，尝试解析一言时发生错误。")
 			if err != nil {
 				log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
 			}
-			return
+			return err
 		}
-		_, err = b.Reply(m, fmt.Sprintf(`%s —— %s「%s」`, data.Hitokoto, data.FromWho, data.From))
+		_, err = b.Reply(ctx.Message(), fmt.Sprintf(`%s —— %s「%s」`, data.Hitokoto, data.FromWho, data.From))
 		if err != nil {
 			log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
+			return err
 		}
+		return nil
 	})
 }
 
