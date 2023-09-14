@@ -11,6 +11,6 @@ func NewDefault() *retryablehttp.Client {
 	client.RetryMax = 5
 	client.RetryWaitMin = time.Millisecond * 100
 	client.RetryWaitMax = time.Second * 2
-	client.Logger = zap.S()
+	client.Logger = newLoggerWrapper(zap.L())
 	return client
 }
