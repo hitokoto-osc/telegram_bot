@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "postinstall": "husky install",
     "commit": "git-cz",
     "commitlint": "commitlint --edit"
   },
