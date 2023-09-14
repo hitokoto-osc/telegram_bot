@@ -2,9 +2,9 @@ package command
 
 import (
 	"fmt"
+	"github.com/cockroachdb/errors"
 
 	"github.com/levigross/grequests"
-	log "github.com/sirupsen/logrus"
 	"gopkg.in/telebot.v3"
 )
 
@@ -45,29 +45,15 @@ func Hitokoto(b *telebot.Bot) {
 		// 请求接口
 		response, err := grequests.Get(url, nil)
 		if err != nil {
-			log.Errorf("尝试获取一言时出现错误，错误信息： %s\n", err)
-			_, err = b.Send(ctx.Chat(), "很抱歉，尝试获取发生错误。")
-			if err != nil {
-				log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
-			}
-			return err
+			return errors.Wrap(err, "无法请求一言接口")
 		}
 		data := &HitokotoSentenceAPIV1Response{}
 		err = response.JSON(data)
 		if err != nil {
-			log.Errorf("尝试解析一言时发生错误，错误信息： %s", err)
-			_, err = b.Send(ctx.Chat(), "很抱歉，尝试解析一言时发生错误。")
-			if err != nil {
-				log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
-			}
-			return err
+			return errors.Wrap(err, "无法解析一言接口返回的 JSON 数据")
 		}
 		_, err = b.Reply(ctx.Message(), fmt.Sprintf(`%s —— %s「%s」`, data.Hitokoto, data.FromWho, data.From))
-		if err != nil {
-			log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
-			return err
-		}
-		return nil
+		return err
 	})
 }
 

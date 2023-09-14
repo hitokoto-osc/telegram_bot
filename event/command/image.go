@@ -4,8 +4,6 @@ import (
 	"gopkg.in/telebot.v3"
 	"strconv"
 	"time"
-
-	log "github.com/sirupsen/logrus"
 )
 
 // Image 返回随机必应图片
@@ -18,10 +16,6 @@ func Image(bot *telebot.Bot) {
 		_, err := photo.Send(bot, ctx.Chat(), &telebot.SendOptions{
 			ReplyTo: ctx.Message(),
 		})
-		if err != nil {
-			log.Errorf("发送消息时发生了错误，错误信息： %s \n", err)
-			return err
-		}
-		return nil
+		return err
 	})
 }

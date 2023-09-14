@@ -2,6 +2,7 @@ package command
 
 import (
 	"fmt"
+	"github.com/cockroachdb/errors"
 	"gopkg.in/telebot.v3"
 	"runtime"
 	"strconv"
@@ -11,7 +12,6 @@ import (
 	"github.com/hitokoto-osc/telegram_bot/build"
 	"github.com/levigross/grequests"
 	"github.com/shirou/gopsutil/v3/load"
-	log "github.com/sirupsen/logrus"
 )
 
 // Status 用于响应获取统计信息的指令
@@ -19,33 +19,18 @@ func Status(b *telebot.Bot) {
 	b.Handle("/status", func(ctx telebot.Context) error {
 		response, err := grequests.Get("https://status.hitokoto.cn/v1/statistic", nil)
 		if err != nil {
-			log.Errorf("尝试获取统计数据时出现错误，错误信息： %s\n", err)
-			_, err = b.Send(ctx.Chat(), "很抱歉，尝试获取数据时发生错误。")
-			if err != nil {
-				log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
-			}
-			return err
+			return errors.Wrap(err, "获取统计数据时发生错误")
 		}
 		result := &hitokotoStatusAPIV1Response{}
 		err = response.JSON(result)
 		if err != nil {
-			log.Errorf("尝试解析统计数据时发生错误，错误信息： %s", err)
-			_, err = b.Send(ctx.Chat(), "很抱歉，尝试解析数据时发生错误。")
-			if err != nil {
-				log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
-			}
-			return err
+			return errors.Wrap(err, "解析统计数据时发生错误")
 		}
 
 		// 读取系统负载
 		lo, err := load.Avg()
 		if err != nil {
-			log.Errorf("尝试解析系统负载时发生错误，错误信息： %s", err)
-			_, err = b.Send(ctx.Chat(), "很抱歉，尝试解析系统负载时发生错误。")
-			if err != nil {
-				log.Errorf("尝试发送消息时出现错误，错误信息：%s \n", err)
-			}
-			return err
+			return errors.Wrap(err, "读取系统负载时发生错误")
 		}
 		// log.Debug(data)
 		_, err = b.Send(ctx.Chat(), fmt.Sprintf(`*[一言统计信息]*

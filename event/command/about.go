@@ -2,9 +2,9 @@ package command
 
 import (
 	"fmt"
+	"github.com/cockroachdb/errors"
 	"time"
 
-	log "github.com/sirupsen/logrus"
 	"gopkg.in/telebot.v3"
 )
 
@@ -19,8 +19,7 @@ func About(b *telebot.Bot) {
 --------------
 当前服务器时间：%s`, time.Now().Format("2006年1月2日 15:04:05")))
 		if err != nil {
-			log.Errorf("发送消息时发生了错误，错误信息： %s \n", err)
-			return err
+			return errors.Wrap(err, "无法发送消息")
 		}
 		return nil
 	})
