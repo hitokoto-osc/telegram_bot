@@ -26,6 +26,12 @@ func initConfig(path string) {
 	if path != "" {
 		viper.AddConfigPath(path)
 	}
+
+	// 读取环境变量
+	viper.SetEnvPrefix("TELEGRAM_BOT_")
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+	viper.AutomaticEnv()
+
 	err := viper.ReadInConfig() // 根据以上配置读取加载配置文件
 	if err != nil {
 		var e viper.ConfigFileNotFoundError
@@ -35,10 +41,6 @@ func initConfig(path string) {
 			logger.Warn("配置文件不存在，使用默认配置（或从环境变量读取）", zap.Error(err))
 		}
 	}
-	// 读取环境变量
-	viper.SetEnvPrefix("TELEGRAM_BOT_")
-	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-	viper.AutomaticEnv()
 
 	logger.Debug(
 		"已加载配置文件",
