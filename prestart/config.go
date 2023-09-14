@@ -37,5 +37,9 @@ func initConfig(path string) {
 			logger.Warn("配置文件不存在，使用默认配置（或从环境变量读取）", zap.Error(err))
 		}
 	}
-	logger.Sugar().Debugf("使用配置文件：%s", viper.ConfigFileUsed())
+	logger.Debug(
+		"已加载配置文件",
+		zap.String("config_file_used", viper.ConfigFileUsed()),
+		zap.Any("settings", viper.AllSettings()),
+	)
 }

@@ -93,5 +93,7 @@ prime/
 
 # custom
 config.yaml
+config.toml
+config.yml
 bin/
 .gopath
