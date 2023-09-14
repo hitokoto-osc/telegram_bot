@@ -1,12 +1,15 @@
 package request
 
-import "go.uber.org/zap"
+import (
+	"github.com/hashicorp/go-retryablehttp"
+	"go.uber.org/zap"
+)
 
 type loggerWrapper struct {
 	l *zap.Logger
 }
 
-func newLoggerWrapper(l *zap.Logger) *loggerWrapper {
+func newLoggerWrapper(l *zap.Logger) retryablehttp.LeveledLogger {
 	return &loggerWrapper{l: l}
 }
 
