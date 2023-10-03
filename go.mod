@@ -8,7 +8,7 @@ require (
 	github.com/samber/lo v1.38.1
 	github.com/shirou/gopsutil/v3 v3.23.9
 	github.com/spf13/viper v1.16.0
-	go.uber.org/zap v1.25.0
+	go.uber.org/zap v1.26.0
 	gopkg.in/telebot.v3 v3.1.3
 )
 
