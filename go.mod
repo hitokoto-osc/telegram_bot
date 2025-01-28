@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/cockroachdb/errors v1.11.1
 	github.com/hashicorp/go-retryablehttp v0.7.4
-	github.com/samber/lo v1.38.1
+	github.com/samber/lo v1.49.1
 	github.com/shirou/gopsutil/v3 v3.23.9
 	github.com/spf13/viper v1.16.0
 	go.uber.org/zap v1.26.0
@@ -40,7 +40,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17 // indirect
 	golang.org/x/sys v0.12.0 // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
